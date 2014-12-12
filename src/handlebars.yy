@@ -103,7 +103,7 @@ hashSegment
   ;
 
 blockParams
-  : OPEN_BLOCK_PARAMS ID+ CLOSE_BLOCK_PARAMS -> $2
+  : START_BLOCK_PARAMS ID+ -> $2
   ;
 
 helperName

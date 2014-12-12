@@ -402,19 +402,16 @@ describe('Tokenizer', function() {
   });
 
   it('tokenizes block params', function() {
-    var result = tokenize("{{#foo as |bar|}}");
-    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'OPEN_BLOCK_PARAMS', 'ID', 'CLOSE_BLOCK_PARAMS', 'CLOSE']);
+    var result = tokenize("{{#foo | bar}}");
+    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'START_BLOCK_PARAMS', 'ID', 'CLOSE']);
 
-    result = tokenize("{{#foo as |bar baz|}}");
-    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'OPEN_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE_BLOCK_PARAMS', 'CLOSE']);
+    result = tokenize("{{#foo | bar baz}}");
+    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'START_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE']);
 
-    result = tokenize("{{#foo as | bar baz |}}");
-    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'OPEN_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE_BLOCK_PARAMS', 'CLOSE']);
+    result = tokenize("{{#foo | bar baz }}");
+    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'START_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE']);
 
-    result = tokenize("{{#foo as as | bar baz |}}");
-    shouldMatchTokens(result, ['OPEN_BLOCK', 'ID', 'ID', 'OPEN_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE_BLOCK_PARAMS', 'CLOSE']);
-
-    result = tokenize("{{else foo as |bar baz|}}");
-    shouldMatchTokens(result, ['OPEN_INVERSE_CHAIN', 'ID', 'OPEN_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE_BLOCK_PARAMS', 'CLOSE']);
+    result = tokenize("{{else foo | bar baz}}");
+    shouldMatchTokens(result, ['OPEN_INVERSE_CHAIN', 'ID', 'START_BLOCK_PARAMS', 'ID', 'ID', 'CLOSE']);
   });
 });
